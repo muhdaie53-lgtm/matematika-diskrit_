@@ -1,0 +1,1517 @@
+<!DOCTYPE html><html class="light" lang="id" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>HAFIZH ASH SHIDDIQY — LogicNova: Kalkulator &amp; Simulator Matematika Diskrit</title>
+<!-- Tailwind CSS CDN & Lucide Icons & Google Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            cyber: {
+              cyan: '#0891b2',
+              emerald: '#059669',
+              rose: '#e11d48',
+              amber: '#d97706',
+            }
+          },
+          boxShadow: {
+            'glow-indigo': '0 10px 25px -5px rgba(79, 70, 229, 0.25)',
+            'glow-cyan': '0 10px 25px -5px rgba(8, 145, 178, 0.25)',
+            'card': '0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02)',
+            'card-hover': '0 12px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04)',
+            'inner-soft': 'inset 0 2px 4px 0 rgba(15, 23, 42, 0.03)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Clean Subtle Grid Pattern */
+    .bg-grid-pattern {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+    }
+
+    /* Ambient soft glows */
+    .radial-gradient-hero {
+      background: radial-gradient(circle at 60% 0%, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.04) 45%, transparent 75%);
+    }
+
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.05); }
+    }
+    .animate-ambient {
+      animation: subtlePulse 10s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-brand-500 selection:text-white">
+<!-- Background decorations for clean light theme -->
+<div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+<div class="fixed top-[-8rem] left-1/2 -translate-x-1/2 w-[750px] h-[450px] bg-brand-200/40 blur-[130px] rounded-full pointer-events-none animate-ambient z-0"></div>
+<div class="fixed top-[22rem] right-[-8rem] w-[550px] h-[380px] bg-sky-200/40 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<!-- Primary Wrapper -->
+<div class="relative z-10 flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="border-b border-slate-200/90 bg-white/85 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<!-- Logo & Branding -->
+<div class="flex items-center gap-3"><div class="flex items-center pr-3 border-r border-slate-200"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuADUD4L2MKeovk8JBUWZKcOWWoFRBSdP4INTPKU275jxegRcQ0jS9dH6-xL1oWT5W55qyxk7NOSll5f98Xriwml2SA3qchSQskI-qzOX3bDQpr1raznOCVMTC38aWqiVfgUVqLDja6m9C4fmwpyo7a8uPewiAlw6hg8CFQkIMyIoKtHZ6w2EdL4ZjLk8glLry5_7uJpkY3UsWUmDwunSn568AeUsUBqxQXuO_zdxsZoxvDD4bJVBfWcCqr7xtztCyGkaT4" alt="Logo UBBG" class="h-9 w-auto object-contain transition duration-200"></div>
+
+<div>
+<div class="flex items-center gap-2">
+<span class="font-extrabold text-base sm:text-lg tracking-tight text-slate-900">Universitas Bina <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-cyan-600">Bangsa Getsempena</span></span>
+<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 border border-brand-200">PJBL-1</span>
+</div>
+<p class="text-xs text-slate-500 hidden sm:block font-medium">Matematika Diskrit</p>
+</div>
+</div>
+<!-- Quick Info Tags -->
+
+<!-- Quick actions -->
+<div class="flex items-center gap-2">
+<button class="text-xs font-semibold px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm transition flex items-center gap-1.5 active:scale-95" onclick="loadSampleDoc()">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" aria-hidden="true" class="lucide lucide-book-open w-3.5 h-3.5 text-brand-600"><path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path></svg>
+<span class="hidden sm:inline">Panduan Belajar</span>
+</button>
+<a class="text-xs font-semibold px-3.5 py-2 rounded-xl bg-brand-50 hover:bg-brand-100 border border-brand-200 text-brand-700 shadow-sm transition flex items-center gap-1.5 active:scale-95" href="#rules-quick">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sparkles" aria-hidden="true" class="lucide lucide-sparkles w-3.5 h-3.5 text-brand-600"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+<span class="">Rumus Cepat</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<!-- Hero Section Banner -->
+<section class="radial-gradient-hero rounded-3xl border border-slate-200/90 bg-white/95 backdrop-blur-xl p-8 lg:p-10 relative overflow-hidden shadow-card"><div class="absolute right-0 top-0 bottom-0 w-full sm:w-2/3 lg:w-1/2 h-full z-0 overflow-hidden pointer-events-none group"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNmTSS33B_h_REbsueAA4knnaTJ66ak4srINXlCrVr-IcK1O6A59jWcohgsdzviGeEn7b5JQ4j2t15stl2MLx4fMWMTDthCcIrHis3I_Fib1V_OdRfNCDwXBIwNJ0-0GGxZpr5yD1CY_5aFZiAxKEfgnfhP9ifjYjmrWcAqAvTAqpMgytnJBmIzWbqaH2a9voSo3HV-vwqitgOnMh0GodzBBu_Rv2ASUkOJhmjUdBLD1vPI4l-wjk80GdDuFI4uMJl5pw" alt="Gedung Kampus UBBG Banda Aceh" class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-105" style="mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0.9) 60%, black 100%);"><div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-white/50" style="background: linear-gradient(to right, #f8fafc 0%, rgba(248, 250, 252, 0.95) 20%, rgba(248, 250, 252, 0.7) 45%, rgba(248, 250, 252, 0.15) 75%, transparent 100%);"></div><div class="absolute inset-y-0 left-0 w-24 backdrop-blur-sm pointer-events-none" style="mask-image: linear-gradient(to right, black, transparent); -webkit-mask-image: linear-gradient(to right, black, transparent);"></div><div class="absolute bottom-4 right-4 pointer-events-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-sm text-[11px] font-semibold text-slate-700 z-10"><span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>Kampus UBBG Banda Aceh</div></div><div class="relative z-10 max-w-2xl space-y-4"><h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight"><br class="hidden sm:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-600">Materi Matematika Diskrit</span></h1><p class="text-slate-600 text-sm sm:text-base leading-relaxed">Simulator <b>Tabel Kebenaran</b> &amp; Logika (AND/OR/NOT), <b>Implikasi-Biimplikasi</b> (Konvers/Invers/Kontraposisi), <b>Kalkulator Himpunan</b>, <b>Relasi &amp; Fungsi</b>, hingga <b>Graf &amp; Kombinatorial</b> — semua bisa dipakai untuk belajar dan cek tugas tanpa hitung manual.</p><div class="pt-2 flex flex-wrap gap-2 text-xs"><span class="px-3 py-1.5 rounded-xl bg-slate-50/90 backdrop-blur-sm text-slate-700 border border-slate-200 shadow-sm flex items-center gap-1.5 font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" aria-hidden="true" class="lucide lucide-check-circle-2 w-3.5 h-3.5 text-emerald-600"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg> Tautologi (Selalu Benar)</span><span class="px-3 py-1.5 rounded-xl bg-slate-50/90 backdrop-blur-sm text-slate-700 border border-slate-200 shadow-sm flex items-center gap-1.5 font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x-circle" aria-hidden="true" class="lucide lucide-x-circle w-3.5 h-3.5 text-rose-600"><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path></svg> Kontradiksi (Selalu Salah)</span><span class="px-3 py-1.5 rounded-xl bg-slate-50/90 backdrop-blur-sm text-slate-700 border border-slate-200 shadow-sm flex items-center gap-1.5 font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" aria-hidden="true" class="lucide lucide-help-circle w-3.5 h-3.5 text-amber-600"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg> Kontingensi (Campuran)</span><span class="px-3 py-1.5 rounded-xl bg-slate-50/90 backdrop-blur-sm text-slate-700 border border-slate-200 shadow-sm flex items-center gap-1.5 font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" aria-hidden="true" class="lucide lucide-shield-check w-3.5 h-3.5 text-cyan-600"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg> Modus Ponens &amp; Tollens</span></div></div></section>
+<!-- Navigation Tabs (Modern Segmented Pill Design) -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-1.5 bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex flex-wrap gap-1.5 w-full sm:w-auto">
+<button class="nav-tab active flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 bg-brand-600 text-white shadow-glow-indigo" data-tab="truth">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="table" aria-hidden="true" class="lucide lucide-table w-4 h-4"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+<span class="">Tabel Kebenaran</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="valid">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-alert" aria-hidden="true" class="lucide lucide-shield-alert w-4 h-4 text-slate-500"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+<span class="">Verifikasi Argumen</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="implikasi">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="git-compare-arrows" aria-hidden="true" class="lucide w-4 h-4 text-slate-500"><path d="M5 9 2 12l3 3"></path><path d="M2 12h10c1.7 0 3 1.3 3 3v1"></path><path d="m19 15 3-3-3-3"></path><path d="M22 12H12c-1.7 0-3-1.3-3-3V8"></path></svg>
+<span class="">Implikasi &amp; Biimplikasi</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="himpunan">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="circle-ellipsis" aria-hidden="true" class="lucide w-4 h-4 text-slate-500"><circle cx="12" cy="6" r="5"></circle><circle cx="6" cy="16" r="5"></circle><circle cx="18" cy="16" r="5"></circle></svg>
+<span class="">Himpunan</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="relasi">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="waypoints" aria-hidden="true" class="lucide w-4 h-4 text-slate-500"><circle cx="12" cy="4.5" r="2.5"></circle><path d="m10.2 6.3-3.9 3.9"></path><circle cx="4.5" cy="12" r="2.5"></circle><path d="M7 12h10"></path><circle cx="19.5" cy="12" r="2.5"></circle><path d="m13.8 6.3 3.9 3.9"></path><circle cx="12" cy="19.5" r="2.5"></circle><path d="m10.2 17.7-3.9-3.9"></path><path d="m13.8 17.7 3.9-3.9"></path></svg>
+<span class="">Relasi &amp; Fungsi</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="graf">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="network" aria-hidden="true" class="lucide w-4 h-4 text-slate-500"><rect x="9" y="2" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="16" y="16" width="6" height="6" rx="1"></rect><path d="M12 8v4"></path><path d="M5 16v-2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"></path></svg>
+<span class="">Graf &amp; Kombinatorial</span>
+</button>
+<button class="nav-tab flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100" data-tab="help">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-marked" aria-hidden="true" class="lucide lucide-book-marked w-4 h-4 text-slate-500"><path d="M10 2v7.751a.25.25 0 00.407.195l2.28-1.834a.5.5 0 01.627 0l2.28 1.834A.25.25 0 0016 9.751V2"></path><path d="M4 19.5v-15A2.5 2.5 0 016.5 2H19a1 1 0 011 1v18a1 1 0 01-1 1H6.5a1 1 0 010-5H20"></path></svg>
+<span class="">Referensi Operator</span>
+</button>
+</div>
+<div class="hidden lg:flex items-center gap-2 px-3 text-xs text-slate-500 font-medium">
+<span class="flex items-center gap-1">
+<kbd class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-mono text-[10px] shadow-sm">Enter</kbd> untuk Analisis
+          </span>
+</div>
+</div>
+<!-- TAB 1: TABEL KEBENARAN -->
+<section class="tab-panel active space-y-6" id="truth">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Input Card (Left / Main Panel) -->
+<div class="lg:col-span-7 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-5">
+<div class="flex items-center justify-between border-b border-slate-100 pb-4">
+<div class="flex items-center gap-2.5">
+<div class="p-2.5 rounded-xl bg-brand-50 text-brand-600 border border-brand-100 shadow-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="code-2" aria-hidden="true" class="lucide lucide-code-2 w-4 h-4"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Input Ekspresi Logika</h3>
+<p class="text-xs text-slate-500">Gunakan variabel alfabet (p, q, r, dll) dan tombol operator</p>
+</div>
+</div>
+<button class="text-xs text-slate-600 hover:text-rose-600 px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-rose-50 border border-slate-200 hover:border-rose-200 transition flex items-center gap-1 font-medium" id="clearTruth">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="trash-2" aria-hidden="true" class="lucide lucide-trash-2 w-3.5 h-3.5"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+<span class="">Reset</span>
+</button>
+</div>
+<!-- Main Input Bar -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs">
+<label class="font-bold text-slate-700 uppercase tracking-wider text-[11px] flex items-center gap-1.5" for="expr">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="terminal" aria-hidden="true" class="lucide lucide-terminal w-3.5 h-3.5 text-brand-600"><path d="M12 19h8"></path><path d="m4 17 6-6-6-6"></path></svg>
+                  Formula Ekspresi
+                </label>
+<span class="text-slate-500 text-[11px] font-mono">Format notasi: ~, &amp;, |, -&gt;, &lt;-&gt;</span>
+</div>
+<div class="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+<div class="relative flex-1">
+<input class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 rounded-xl px-4 py-3.5 text-base sm:text-lg font-mono text-slate-900 placeholder-slate-400 outline-none transition shadow-sm" id="expr" placeholder="Contoh: (p &amp; q) -&gt; (r | ~p)" type="text" value="p &amp; q">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-mono pointer-events-none hidden sm:block bg-white/80 px-1.5 py-0.5 rounded border border-slate-200">
+                    LOGIC EXPR
+                  </div>
+</div>
+<button class="bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold px-6 py-3.5 rounded-xl shadow-glow-indigo transition transform active:scale-95 flex items-center justify-center gap-2 shrink-0" id="makeTruth">
+<span class="">Analisis</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" aria-hidden="true" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+</div>
+</div>
+<!-- Virtual Logic Keyboard (Operator Shortcuts) -->
+<div class="space-y-2 pt-1">
+<div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="keyboard" aria-hidden="true" class="lucide lucide-keyboard w-3.5 h-3.5 text-brand-600"><path d="M10 8h.01"></path><path d="M12 12h.01"></path><path d="M14 8h.01"></path><path d="M16 12h.01"></path><path d="M18 8h.01"></path><path d="M6 8h.01"></path><path d="M7 16h10"></path><path d="M8 12h.01"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></svg>
+                Sisipkan Simbol Operator
+              </div>
+<div class="grid grid-cols-4 sm:grid-cols-7 gap-2">
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 transition shadow-sm" data-op=" &amp; ">
+<span class="font-mono font-bold text-base text-brand-600 group-hover:scale-110 transition">&amp;</span>
+<span class="text-[10px] text-slate-500 font-sans">AND (∧)</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 border border-slate-200 hover:border-brand-300 text-slate-700 hover:text-brand-700 transition shadow-sm" data-op=" | ">
+<span class="font-mono font-bold text-base text-indigo-600 group-hover:scale-110 transition">|</span>
+<span class="text-[10px] text-slate-500 font-sans">OR (∨)</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 border border-slate-200 hover:border-rose-300 text-slate-700 hover:text-rose-700 transition shadow-sm" data-op="~">
+<span class="font-mono font-bold text-base text-rose-600 group-hover:scale-110 transition">~</span>
+<span class="text-[10px] text-slate-500 font-sans">NOT (¬)</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-cyan-50 border border-slate-200 hover:border-cyan-300 text-slate-700 hover:text-cyan-700 transition shadow-sm" data-op=" -&gt; ">
+<span class="font-mono font-bold text-base text-cyan-700 group-hover:scale-110 transition">-&gt;</span>
+<span class="text-[10px] text-slate-500 font-sans">IMPLIKASI (→)</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-slate-700 hover:text-amber-700 transition shadow-sm" data-op=" &lt;-&gt; ">
+<span class="font-mono font-bold text-base text-amber-600 group-hover:scale-110 transition">&lt;-&gt;</span>
+<span class="text-[10px] text-slate-500 font-sans">BIKOND (↔)</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 transition shadow-sm" data-op="(">
+<span class="font-mono font-bold text-base text-slate-800 group-hover:scale-110 transition">(</span>
+<span class="text-[10px] text-slate-500 font-sans">Buka</span>
+</button>
+<button class="op-btn group flex flex-col items-center justify-center p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 transition shadow-sm" data-op=")">
+<span class="font-mono font-bold text-base text-slate-800 group-hover:scale-110 transition">)</span>
+<span class="text-[10px] text-slate-500 font-sans">Tutup</span>
+</button>
+</div>
+</div>
+<!-- Quick Preset Examples -->
+<div class="space-y-2 pt-1 border-t border-slate-100">
+<div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+<span class="flex items-center gap-1.5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bookmark" aria-hidden="true" class="lucide lucide-bookmark w-3.5 h-3.5 text-amber-500"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"></path></svg>
+                  Coba Kasus Standar (Hukum Logika)
+                </span>
+<span class="text-[10px] text-slate-400">Klik untuk langsung mencoba</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="ex-btn text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-white text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 shadow-sm transition flex items-center gap-1.5" data-value="p | ~p">
+<span class="">p ∨ ¬p</span>
+<span class="text-[10px] text-emerald-700 font-sans font-semibold bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">Tautologi</span>
+</button>
+<button class="ex-btn text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-white text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 shadow-sm transition flex items-center gap-1.5" data-value="p &amp; ~p">
+<span class="">p ∧ ¬p</span>
+<span class="text-[10px] text-rose-700 font-sans font-semibold bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded">Kontradiksi</span>
+</button>
+<button class="ex-btn text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-white text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 shadow-sm transition flex items-center gap-1.5" data-value="~(p &amp; q) &lt;-&gt; (~p | ~q)">
+<span class="">¬(p ∧ q) ↔ (¬p ∨ ¬q)</span>
+<span class="text-[10px] text-cyan-700 font-sans font-semibold bg-cyan-50 border border-cyan-200 px-1.5 py-0.2 rounded">De Morgan</span>
+</button>
+<button class="ex-btn text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-white text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 shadow-sm transition flex items-center gap-1.5" data-value="(p -&gt; q) &lt;-&gt; (~q -&gt; ~p)">
+<span class="">(p → q) ↔ (¬q → ¬p)</span>
+<span class="text-[10px] text-brand-700 font-sans font-semibold bg-brand-50 border border-brand-200 px-1.5 py-0.2 rounded">Kontraposisi</span>
+</button>
+<button class="ex-btn text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-white text-slate-700 hover:text-brand-700 border border-slate-200 hover:border-brand-300 shadow-sm transition flex items-center gap-1.5" data-value="((p -&gt; q) &amp; (q -&gt; r)) -&gt; (p -&gt; r)">
+<span class="">Silogisme Hipotetis</span>
+</button>
+</div>
+</div>
+<!-- Error Banner -->
+<div class="empty:hidden" id="truthError"></div>
+</div>
+<!-- Summary & Statistics Cards (Right Column) -->
+<div class="lg:col-span-5 space-y-6">
+<!-- Result Classification Badge Card -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card relative overflow-hidden">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="gauge" aria-hidden="true" class="lucide lucide-gauge w-3.5 h-3.5 text-brand-600"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
+                  Status Klasifikasi
+                </span>
+<span class="text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider border bg-amber-50 text-amber-700 border-amber-200" id="classificationTag">Campuran (T &amp; F)</span>
+</div>
+<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-2" id="classificationBox">
+<div class="text-xs text-slate-500 font-medium">Hasil Evaluasi:</div>
+<div class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2" id="classificationTitle"><span class="text-amber-600">KONTINGENSI</span></div>
+<p class="text-xs text-slate-600 leading-relaxed font-normal" id="classificationDesc">Ekspresi proposisi bernilai Benar pada kondisi tertentu dan Salah pada kondisi lainnya tergantung input variabel.</p>
+</div>
+</div>
+<!-- Numeric Metric Stats -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card">
+<div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-1.5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-3" aria-hidden="true" class="lucide lucide-bar-chart-3 w-3.5 h-3.5 text-brand-600"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+                Statistik Evaluasi Baris (2ⁿ)
+              </div>
+<div class="grid grid-cols-3 gap-3">
+<div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Total Baris</span>
+<span class="text-2xl font-black text-slate-900 font-mono mt-1 block" id="statTotal">4</span>
+<span class="text-[10px] text-slate-500 mt-1 block font-medium" id="statVars">2 variabel (p, q)</span>
+</div>
+<div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 text-center">
+<span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">TRUE (Benar)</span>
+<span class="text-2xl font-black text-emerald-600 font-mono mt-1 block" id="statTrue">1</span>
+<span class="text-[10px] text-emerald-700 mt-1 block font-semibold" id="statTruePct">25% baris</span>
+</div>
+<div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200 text-center">
+<span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider block">FALSE (Salah)</span>
+<span class="text-2xl font-black text-rose-600 font-mono mt-1 block" id="statFalse">3</span>
+<span class="text-[10px] text-rose-700 mt-1 block font-semibold" id="statFalsePct">75% baris</span>
+</div>
+</div>
+</div>
+<!-- Logic Pro Tip -->
+<div class="p-4 rounded-2xl bg-indigo-50/70 border border-brand-200/80 flex items-start gap-3 shadow-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="info" aria-hidden="true" class="lucide lucide-info w-5 h-5 text-brand-600 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+<div class="text-xs text-slate-700 leading-relaxed">
+<span class="font-bold text-brand-900">Tips Logika:</span> Gunakan tanda kurung <code class="px-1.5 py-0.5 rounded bg-white font-mono text-brand-700 text-[11px] border border-brand-200 shadow-xs">( )</code> untuk mempertegas urutan pengerjaan operator. Implikasi <code class="px-1 py-0.5 rounded bg-white font-mono text-cyan-700 text-[11px] border border-cyan-200 shadow-xs">-&gt;</code> hanya bernilai salah jika anteseden benar sementara konsekuensi salah.
+              </div>
+</div>
+</div>
+</div>
+<!-- Truth Table Visualization Card -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+<div>
+<h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="grid" aria-hidden="true" class="lucide lucide-grid w-4 h-4 text-brand-600"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path><path d="M9 3v18"></path><path d="M15 3v18"></path></svg>
+                Tabel Evaluasi Kebenaran Lengkap
+              </h3>
+<p class="text-xs text-slate-500">Setiap baris memetakan kombinasi nilai kebenaran dari seluruh variabel</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-mono font-semibold" id="rowCount">4 Baris Evaluasi</span>
+<button class="text-xs px-3.5 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 transition flex items-center gap-1.5 border border-slate-200 font-medium active:scale-95 shadow-xs" onclick="copyTableText()">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="copy" aria-hidden="true" class="lucide lucide-copy w-3.5 h-3.5 text-slate-500"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+<span class="">Salin Data</span>
+</button>
+</div>
+</div>
+<!-- Dynamic Output Table Area -->
+<div class="overflow-hidden" id="truthResult">
+          <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+            <table class="w-full text-center border-collapse">
+              <thead>
+                <tr class="bg-slate-100/90 border-b border-slate-200 text-[11px] font-mono uppercase tracking-wider text-slate-600">
+                  <th class="py-3 px-4 w-12 text-slate-400 font-semibold">#</th>
+                  <th class="py-3 px-4 text-brand-700 font-bold border-r border-slate-200">p</th><th class="py-3 px-4 text-brand-700 font-bold border-r border-slate-200">q</th>
+                  <th class="py-3 px-4 text-slate-900 font-bold bg-slate-50">p &amp; q</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-xs font-mono">
+                
+                    <tr class="hover:bg-slate-50/70 transition">
+                      <td class="py-2.5 px-4 text-slate-400 text-[11px]">1</td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-500">
+                          <span class="inline-block w-6 py-0.5 rounded text-rose-600 font-medium">F</span>
+                        </td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-500">
+                          <span class="inline-block w-6 py-0.5 rounded text-rose-600 font-medium">F</span>
+                        </td>
+                      
+                      <td class="py-2.5 px-4 text-rose-600 bg-rose-50/60 font-bold">
+                        <span class="inline-flex items-center gap-1.5">
+                          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                          F
+                        </span>
+                      </td>
+                    </tr>
+                  
+                    <tr class="hover:bg-slate-50/70 transition">
+                      <td class="py-2.5 px-4 text-slate-400 text-[11px]">2</td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-500">
+                          <span class="inline-block w-6 py-0.5 rounded text-rose-600 font-medium">F</span>
+                        </td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-800">
+                          <span class="inline-block w-6 py-0.5 rounded bg-slate-100 text-emerald-700 font-semibold">T</span>
+                        </td>
+                      
+                      <td class="py-2.5 px-4 text-rose-600 bg-rose-50/60 font-bold">
+                        <span class="inline-flex items-center gap-1.5">
+                          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                          F
+                        </span>
+                      </td>
+                    </tr>
+                  
+                    <tr class="hover:bg-slate-50/70 transition">
+                      <td class="py-2.5 px-4 text-slate-400 text-[11px]">3</td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-800">
+                          <span class="inline-block w-6 py-0.5 rounded bg-slate-100 text-emerald-700 font-semibold">T</span>
+                        </td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-500">
+                          <span class="inline-block w-6 py-0.5 rounded text-rose-600 font-medium">F</span>
+                        </td>
+                      
+                      <td class="py-2.5 px-4 text-rose-600 bg-rose-50/60 font-bold">
+                        <span class="inline-flex items-center gap-1.5">
+                          <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                          F
+                        </span>
+                      </td>
+                    </tr>
+                  
+                    <tr class="hover:bg-slate-50/70 transition">
+                      <td class="py-2.5 px-4 text-slate-400 text-[11px]">4</td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-800">
+                          <span class="inline-block w-6 py-0.5 rounded bg-slate-100 text-emerald-700 font-semibold">T</span>
+                        </td>
+                      
+                        <td class="py-2.5 px-4 border-r border-slate-200 text-slate-800">
+                          <span class="inline-block w-6 py-0.5 rounded bg-slate-100 text-emerald-700 font-semibold">T</span>
+                        </td>
+                      
+                      <td class="py-2.5 px-4 text-emerald-700 bg-emerald-50/70 font-bold">
+                        <span class="inline-flex items-center gap-1.5">
+                          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                          T
+                        </span>
+                      </td>
+                    </tr>
+                  
+              </tbody>
+            </table>
+          </div>
+        </div>
+</div>
+</section>
+<!-- TAB 2: VERIFIKASI VALIDITAS ARGUMEN -->
+<section class="tab-panel hidden space-y-6" id="valid">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Input Argument Form -->
+<div class="lg:col-span-6 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-5">
+<div class="border-b border-slate-100 pb-4">
+<div class="flex items-center gap-2.5">
+<div class="p-2.5 rounded-xl bg-cyan-50 text-cyan-700 border border-cyan-200 shadow-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="scale" aria-hidden="true" class="lucide lucide-scale w-4 h-4"><path d="M12 3v18"></path><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"></path><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"></path><path d="M7 21h10"></path></svg>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Uji Validitas Argumen Deduktif</h3>
+<p class="text-xs text-slate-500">Verifikasi apakah premis-premis menjamin kebenaran kesimpulan</p>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center justify-between" for="premises">
+<span class="flex items-center gap-1.5">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="list-ordered" aria-hidden="true" class="lucide lucide-list-ordered w-3.5 h-3.5 text-cyan-600"><path d="M11 5h10"></path><path d="M11 12h10"></path><path d="M11 19h10"></path><path d="M4 4h1v5"></path><path d="M4 9h2"></path><path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02"></path></svg>
+                    Daftar Premis (Satu premis per baris)
+                  </span>
+<span class="text-[11px] text-slate-400 font-normal">P₁ , P₂ , ... , Pₙ</span>
+</label>
+<textarea class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl p-3.5 text-sm sm:text-base font-mono text-slate-900 placeholder-slate-400 outline-none transition shadow-sm" id="premises" placeholder="p -&gt; q
+p" rows="4">p -&gt; q
+p</textarea>
+<p class="text-[11px] text-slate-500 mt-1">Tekan Enter untuk memisahkan setiap premis menjadi pernyataan independen.</p>
+</div>
+<div>
+<label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 flex items-center gap-1.5" for="conclusion">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-square" aria-hidden="true" class="lucide lucide-check-square w-3.5 h-3.5 text-emerald-600"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344"></path><path d="m9 11 3 3L22 4"></path></svg>
+                  Kesimpulan / Konklusi (C)
+                </label>
+<input class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl px-4 py-3 font-mono text-slate-900 outline-none transition shadow-sm" id="conclusion" placeholder="Contoh: q" type="text" value="q">
+</div>
+<div class="pt-2">
+<button class="w-full bg-gradient-to-r from-cyan-600 via-indigo-600 to-brand-600 hover:from-cyan-700 hover:to-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-glow-indigo transition transform active:scale-[0.99] flex items-center justify-center gap-2" id="checkValid">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shield-check" aria-hidden="true" class="lucide lucide-shield-check w-4 h-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<span class="">Verifikasi Keabsahan Argumen</span>
+</button>
+</div>
+<!-- Preset Argument Fallacies & Rules -->
+<div class="pt-3 border-t border-slate-100">
+<span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Preset Pola Inferensi Populer:</span>
+<div class="flex flex-wrap gap-2 text-xs">
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition shadow-xs font-medium" onclick="setArgumentPreset('p -&gt; q\np', 'q')">
+                    Modus Ponens (Valid)
+                  </button>
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition shadow-xs font-medium" onclick="setArgumentPreset('p -&gt; q\n~q', '~p')">
+                    Modus Tollens (Valid)
+                  </button>
+<button class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition shadow-xs font-medium" onclick="setArgumentPreset('p -&gt; q\nq', 'p')">
+                    Fallacy: Affirming Consequent
+                  </button>
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition shadow-xs font-medium" onclick="setArgumentPreset('p | q\n~p', 'q')">
+                    Silogisme Disjungtif
+                  </button>
+</div>
+</div>
+<div class="empty:hidden" id="validError"></div>
+</div>
+</div>
+<!-- Validity Output Details Panel -->
+<div class="lg:col-span-6 space-y-6">
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card">
+<div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+<h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file-check-2" aria-hidden="true" class="lucide lucide-file-check-2 w-4 h-4 text-emerald-600"><path d="M10.5 22H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v6"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="m14 20 2 2 4-4"></path></svg>
+                  Hasil Uji Inferensi Deduktif
+                </h3>
+<span class="text-[11px] text-slate-500 font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Formal Logic Check</span>
+</div>
+<div class="space-y-4" id="validResult">
+<div class="p-8 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="search" aria-hidden="true" class="lucide lucide-search w-8 h-8 text-slate-400 mx-auto mb-2"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                  Klik tombol <b>Verifikasi Keabsahan Argumen</b> untuk mengecek apakah terdapat kondisi pembuat cacat logika (counterexample).
+                </div>
+</div>
+</div>
+<!-- Definition Card -->
+<div class="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2 text-xs text-slate-600 shadow-card">
+<div class="font-bold text-slate-900 flex items-center gap-1.5 text-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" aria-hidden="true" class="lucide lucide-help-circle w-4 h-4 text-amber-500"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                Definisi Validitas Argumen
+              </div>
+<p class="leading-relaxed">
+                Suatu argumen dinyatakan <strong class="text-emerald-700">VALID</strong> jika dan hanya jika dalam setiap keadaan di mana semua premis bernilai <b>BENAR (T)</b>, maka kesimpulannya juga wajib bernilai <b>BENAR (T)</b>.
+              </p>
+<p class="leading-relaxed text-slate-500">
+                Argumen dinyatakan <strong class="text-rose-700">TIDAK VALID (INVALID)</strong> apabila ditemukan minimal satu kombinasi variabel di mana seluruh premis bernilai BENAR namun kesimpulan bernilai SALAH (disebut <em>Counterexample</em>).
+              </p>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB: IMPLIKASI & BIIMPLIKASI -->
+<section class="tab-panel hidden space-y-6" id="implikasi">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-6 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-5">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-cyan-50 text-cyan-700 border border-cyan-200 shadow-sm"><i data-lucide="git-compare-arrows" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Bentuk-Bentuk Implikasi</h3>
+<p class="text-xs text-slate-500">Masukkan pernyataan P dan Q dari kalimat "Jika P maka Q"</p>
+</div>
+</div>
+<div class="space-y-3">
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Pernyataan P (Antesenden)</label>
+<input id="impP" type="text" value="hujan turun" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Pernyataan Q (Konsekuen)</label>
+<input id="impQ" type="text" value="jalan basah" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition shadow-sm">
+</div>
+<button id="genImplikasi" class="w-full bg-gradient-to-r from-cyan-600 to-brand-600 hover:from-cyan-700 hover:to-brand-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="wand-2" class="w-4 h-4"></i><span>Buat 4 Bentuk Pernyataan</span>
+</button>
+<div class="pt-2 border-t border-slate-100">
+<span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Contoh Cepat:</span>
+<div class="flex flex-wrap gap-2 text-xs">
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition font-medium" onclick="document.getElementById('impP').value='hujan turun';document.getElementById('impQ').value='jalan basah';genImplikasi();">Hujan &amp; Jalan Basah</button>
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition font-medium" onclick="document.getElementById('impP').value='n habis dibagi 4';document.getElementById('impQ').value='n habis dibagi 2';genImplikasi();">Bilangan Genap</button>
+<button class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition font-medium" onclick="document.getElementById('impP').value='saya rajin belajar';document.getElementById('impQ').value='saya lulus ujian';genImplikasi();">Rajin Belajar</button>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-6 space-y-6">
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card">
+<h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-4 mb-4 flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-brand-600"></i>Hasil Transformasi</h3>
+<div id="implikasiResult" class="space-y-3">
+<div class="p-8 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-sm">Isi P dan Q lalu klik <b>Buat 4 Bentuk Pernyataan</b>.</div>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-white border border-slate-200/90 space-y-2 text-xs text-slate-600 shadow-card">
+<div class="font-bold text-slate-900 flex items-center gap-1.5 text-sm"><i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i>Catatan Penting</div>
+<p class="leading-relaxed">Suatu implikasi <b>secara logis ekivalen (≡)</b> dengan kontraposisinya. Konvers dan invers juga saling ekivalen satu sama lain, tetapi <b>tidak</b> ekivalen dengan implikasi aslinya.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB: HIMPUNAN -->
+<section class="tab-panel hidden space-y-6" id="himpunan">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-brand-50 text-brand-600 border border-brand-100 shadow-sm"><i data-lucide="circle-ellipsis" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Kalkulator Himpunan</h3>
+<p class="text-xs text-slate-500">Pisahkan anggota dengan koma, contoh: 1,2,3</p>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Himpunan A</label>
+<input id="setA" type="text" value="1,2,3,4" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Himpunan B</label>
+<input id="setB" type="text" value="3,4,5,6" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Semesta S (untuk Komplemen, opsional)</label>
+<input id="setS" type="text" value="1,2,3,4,5,6,7,8" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<button id="hitungHimpunan" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="calculator" class="w-4 h-4"></i><span>Hitung Semua Operasi</span>
+</button>
+</div>
+<div class="lg:col-span-7">
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card">
+<h3 class="font-bold text-slate-900 text-base border-b border-slate-100 pb-4 mb-4 flex items-center gap-2"><i data-lucide="list" class="w-4 h-4 text-brand-600"></i>Hasil Operasi Himpunan</h3>
+<div id="himpunanResult" class="space-y-2.5">
+<div class="p-8 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-sm">Isi himpunan A &amp; B lalu klik <b>Hitung Semua Operasi</b>.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB: RELASI & FUNGSI -->
+<section class="tab-panel hidden space-y-6" id="relasi">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-6 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-200 shadow-sm"><i data-lucide="waypoints" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Sifat Relasi</h3>
+<p class="text-xs text-slate-500">Cek refleksif, simetris, transitif, antisimetris</p>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Himpunan A (elemen)</label>
+<input id="relSet" type="text" value="1,2,3" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Pasangan Relasi R (format a-b, pisahkan koma)</label>
+<input id="relPairs" type="text" value="1-1,2-2,3-3,1-2,2-1" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<button id="cekRelasi" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="scan-search" class="w-4 h-4"></i><span>Cek Sifat Relasi</span>
+</button>
+<div id="relasiResult" class="space-y-2 pt-1">
+<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-xs">Hasil pengecekan sifat relasi akan muncul di sini.</div>
+</div>
+</div>
+<div class="lg:col-span-6 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 shadow-sm"><i data-lucide="git-branch" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Cek Fungsi</h3>
+<p class="text-xs text-slate-500">Injektif, Surjektif, Bijektif</p>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Domain A (elemen)</label>
+<input id="fnDomain" type="text" value="1,2,3" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Kodomain B (elemen)</label>
+<input id="fnCodomain" type="text" value="a,b,c" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Pemetaan (format a-b, pisahkan koma)</label>
+<input id="fnMap" type="text" value="1-a,2-b,3-c" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<button id="cekFungsi" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="scan-search" class="w-4 h-4"></i><span>Cek Jenis Fungsi</span>
+</button>
+<div id="fungsiResult" class="space-y-2 pt-1">
+<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-xs">Hasil pengecekan fungsi akan muncul di sini.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB: GRAF & KOMBINATORIAL -->
+<section class="tab-panel hidden space-y-6" id="graf">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-6 bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-cyan-50 text-cyan-700 border border-cyan-200 shadow-sm"><i data-lucide="network" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Analisis Graf</h3>
+<p class="text-xs text-slate-500">Simpul, sisi, derajat, dan cek graf sederhana</p>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Simpul / Vertex (pisahkan koma)</label>
+<input id="grafVertex" type="text" value="A,B,C,D" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">Sisi / Edge (format A-B, pisahkan koma)</label>
+<input id="grafEdge" type="text" value="A-B,B-C,C-D,D-A,A-C" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-cyan-600 focus:ring-4 focus:ring-cyan-600/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<button id="hitungGraf" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="calculator" class="w-4 h-4"></i><span>Analisis Graf</span>
+</button>
+<div id="grafResult" class="space-y-2 pt-1">
+<div class="p-4 rounded-xl bg-slate-50/70 border border-slate-200 text-center text-slate-500 text-xs">Hasil analisis graf akan muncul di sini.</div>
+</div>
+</div>
+<div class="lg:col-span-6 space-y-6">
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-4">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shadow-sm"><i data-lucide="grid-3x3" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Kombinatorial</h3>
+<p class="text-xs text-slate-500">Faktorial, Permutasi (nPr), Kombinasi (nCr)</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">n</label>
+<input id="kombN" type="number" min="0" max="20" value="5" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+<div>
+<label class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 block">r</label>
+<input id="kombR" type="number" min="0" max="20" value="2" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 rounded-xl px-4 py-3 text-sm font-mono text-slate-900 outline-none transition shadow-sm">
+</div>
+</div>
+<button id="hitungKomb" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-4 rounded-xl shadow-glow-indigo transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="calculator" class="w-4 h-4"></i><span>Hitung nPr, nCr, n!</span>
+</button>
+<div id="kombResult" class="grid grid-cols-3 gap-2 text-center text-xs font-mono pt-1"></div>
+</div>
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-7 shadow-card space-y-3">
+<div class="flex items-center gap-2.5 border-b border-slate-100 pb-4">
+<div class="p-2.5 rounded-xl bg-rose-50 text-rose-600 border border-rose-200 shadow-sm"><i data-lucide="equal" class="w-4 h-4"></i></div>
+<div>
+<h3 class="font-bold text-slate-900 text-base">Aljabar Boolean</h3>
+<p class="text-xs text-slate-500">Cek dua ekspresi logika ekivalen atau tidak</p>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-2.5">
+<input id="boolExprA" type="text" value="~(p & q)" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 outline-none transition shadow-sm" placeholder="Ekspresi 1, misal ~(p & q)">
+<input id="boolExprB" type="text" value="~p | ~q" class="w-full bg-slate-50/70 border border-slate-300 focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 rounded-xl px-4 py-2.5 text-sm font-mono text-slate-900 outline-none transition shadow-sm" placeholder="Ekspresi 2, misal ~p | ~q">
+</div>
+<button id="cekBoolean" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-sm transition active:scale-[0.99] flex items-center justify-center gap-2">
+<i data-lucide="scan-search" class="w-4 h-4"></i><span>Cek Ekivalensi</span>
+</button>
+<div id="boolResult"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TAB 3: OPERATOR & REFERENSI MATEMATIKA DISKRIT -->
+<section class="tab-panel hidden space-y-6" id="help">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="rules-quick">
+<!-- Operator Negasi -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                ~p
+              </div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">¬p</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Negasi (NOT)</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              Membalikkan nilai kebenaran. Bernilai Benar jika pernyataan aslinya Salah, dan sebaliknya.
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="flex justify-between"><span class="">~T (NOT True)</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">~F (NOT False)</span><span class="text-emerald-600 font-bold">T</span></div>
+</div>
+</div>
+<!-- Operator Konjungsi -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                p &amp; q
+              </div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">p ∧ q</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Konjungsi (AND)</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              Bernilai Benar <b>hanya jika kedua</b> proposisi bernilai Benar.
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="flex justify-between"><span class="">T &amp; T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">T &amp; F</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">F &amp; T</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">F &amp; F</span><span class="text-rose-600 font-bold">F</span></div>
+</div>
+</div>
+<!-- Operator Disjungsi -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                p | q
+              </div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">p ∨ q</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Disjungsi (OR)</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              Bernilai Benar jika <b>minimal salah satu</b> proposisi bernilai Benar.
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="flex justify-between"><span class="">T | T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">T | F</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">F | T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">F | F</span><span class="text-rose-600 font-bold">F</span></div>
+</div>
+</div>
+<!-- Operator Implikasi -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-600 flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                p -&gt; q
+              </div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">p → q</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Implikasi (Kondisional)</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              "Jika p maka q". Bernilai Salah <b>hanya jika p Benar namun q Salah</b> (janji dilanggar).
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="flex justify-between"><span class="">T -&gt; T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">T -&gt; F</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">F -&gt; T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">F -&gt; F</span><span class="text-emerald-600 font-bold">T</span></div>
+</div>
+</div>
+<!-- Operator Bikondisional -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-mono font-bold text-lg shadow-sm">
+                p &lt;-&gt; q
+              </div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">p ↔ q</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Bi-Implikasi (Bikondisional)</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              "p jika dan hanya jika q". Bernilai Benar apabila kedua proposisi bernilai <b>sama persis</b>.
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="flex justify-between"><span class="">T &lt;-&gt; T</span><span class="text-emerald-600 font-bold">T</span></div>
+<div class="flex justify-between"><span class="">T &lt;-&gt; F</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">F &lt;-&gt; T</span><span class="text-rose-600 font-bold">F</span></div>
+<div class="flex justify-between"><span class="">F &lt;-&gt; F</span><span class="text-emerald-600 font-bold">T</span></div>
+</div>
+</div>
+<!-- Hukum Ekivalensi Logis -->
+<div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition">
+<div class="flex items-center justify-between mb-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shadow-sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="award" aria-hidden="true" class="lucide lucide-award w-5 h-5"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>
+</div>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 font-bold">≡</span>
+</div>
+<h4 class="font-bold text-slate-900 text-base">Hukum Penting Diskrit</h4>
+<p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed font-medium">
+              Ekivalensi yang sering diuji dalam pembuktian aljabar boolean proposisi.
+            </p>
+<div class="text-xs font-mono bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-700 space-y-1.5">
+<div class="text-slate-900 font-sans font-bold">De Morgan:</div>
+<div class="text-cyan-700">~(p &amp; q) ≡ ~p | ~q</div>
+<div class="text-slate-900 font-sans font-bold pt-1">Implikasi Material:</div>
+<div class="text-brand-700">p -&gt; q ≡ ~p | q</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer with Prominent Attribution -->
+<footer class="border-t border-slate-200 bg-white/90 backdrop-blur-md py-6 text-xs text-slate-500 shadow-sm mt-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+<span class="font-extrabold text-slate-900">Universitas Bina Bangsa Getsempena</span>
+<span class="">— Project-Based Learning (PJBL-1) Matematika Diskrit</span>
+<span class="text-slate-300 hidden sm:inline">•</span>
+<span class="text-slate-600">Dibuat oleh <strong class="text-slate-950 font-black tracking-wide uppercase px-2 py-0.5 bg-slate-100 rounded border border-slate-200">HAFIZH ASH SHIDDIQY</strong></span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 font-medium">
+<span class="">Engine: Standalone JavaScript Client Parser</span>
+<span class="">•</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            100% Offline Compatible
+          </span>
+</div>
+</div>
+</footer>
+</div>
+<!-- Client-Side Logic Engine Script -->
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Variable Extractor
+    function varsOf(s){
+      const m = s.match(/\b[a-zA-Z]\b/g) || [];
+      return [...new Set(m)].sort();
+    }
+
+    // Outer parenthesis stripper
+    function stripOuter(s){
+      s = s.trim();
+      while(s.startsWith('(') && s.endsWith(')')){
+        let d = 0, ok = true;
+        for(let i=0; i<s.length; i++){
+          if(s[i] === '(') d++; 
+          else if(s[i] === ')') d--;
+          if(d === 0 && i < s.length - 1){ ok = false; break; }
+        }
+        if(ok) s = s.slice(1, -1).trim(); 
+        else break;
+      }
+      return s;
+    }
+
+    // Split top-level operator respecting nested parens
+    function splitTop(s, op){
+      let d = 0;
+      for(let i = 0; i <= s.length - op.length; i++){
+        const c = s[i]; 
+        if(c === '(') d++; 
+        else if(c === ')') d--;
+        if(d === 0 && s.slice(i, i + op.length) === op){
+          return [s.slice(0, i), s.slice(i + op.length)];
+        }
+      }
+      return null;
+    }
+
+    // Recursive logic expression evaluator
+    function evalLogic(raw, env){
+      let s = stripOuter(raw.replace(/\s+/g, ''));
+      if(!s) throw new Error('Ekspresi kosong.');
+      
+      // Order of precedence: Biconditional <-> , Implication -> , Disjunction | , Conjunction & , Negation ~
+      let parts = splitTop(s, '<->'); 
+      if(parts) return evalLogic(parts[0], env) === evalLogic(parts[1], env);
+
+      parts = splitTop(s, '->'); 
+      if(parts) return (!evalLogic(parts[0], env)) || evalLogic(parts[1], env);
+
+      parts = splitTop(s, '|'); 
+      if(parts) return evalLogic(parts[0], env) || evalLogic(parts[1], env);
+
+      parts = splitTop(s, '&'); 
+      if(parts) return evalLogic(parts[0], env) && evalLogic(parts[1], env);
+
+      if(s.startsWith('~')) return !evalLogic(s.slice(1), env);
+
+      if(/^[a-zA-Z]$/.test(s)){
+        if(!(s in env)) throw new Error('Variabel tidak dikenali: ' + s);
+        return !!env[s];
+      }
+      throw new Error('Format sintaksis tidak valid di sekitar: "' + raw + '"');
+    }
+
+    // Generate truth table permutations (2^n)
+    function combinations(vs){
+      const out = [];
+      const total = 1 << vs.length;
+      for(let mask = 0; mask < total; mask++){
+        const row = {};
+        vs.forEach((v, i) => {
+          row[v] = !((mask & (1 << (vs.length - i - 1))) === 0);
+        });
+        out.push(row);
+      }
+      return out;
+    }
+
+    function tf(x){ return x ? 'T' : 'F'; }
+
+    // Analyze Truth Table Function
+    function analyzeTruth(){
+      const exprInput = document.getElementById('expr');
+      const expr = exprInput.value.trim();
+      const err = document.getElementById('truthError');
+      const result = document.getElementById('truthResult');
+      
+      err.innerHTML = '';
+      
+      if(!expr){
+        err.innerHTML = `
+          <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 shrink-0"></i>
+            <span>Silakan ketikkan formula logika terlebih dahulu (misal: <code>p & q</code>).</span>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      try {
+        const vs = varsOf(expr);
+        if(!vs.length) throw new Error('Tidak ditemukan variabel proposisional (seperti p, q, atau r).');
+        if(vs.length > 7) throw new Error('Maksimum 7 variabel (128 baris) untuk performa komputasi browser yang optimal.');
+
+        const rows = combinations(vs).map(env => ({ ...env, out: evalLogic(expr, env) }));
+        const vals = rows.map(r => r.out);
+        const trueCount = vals.filter(Boolean).length;
+        const falseCount = vals.filter(v => !v).length;
+        const total = rows.length;
+
+        const isTautology = vals.every(Boolean);
+        const isContradiction = vals.every(v => !v);
+
+        let clsTitle = '';
+        let clsTag = '';
+        let clsDesc = '';
+
+        if(isTautology){
+          clsTitle = '<span class="text-emerald-600">TAUTOLOGI</span>';
+          clsTag = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+          clsDesc = 'Ekspresi proposisi ini <b>selalu bernilai Benar (T)</b> pada seluruh kombinasi variabel. Merupakan suatu kebenaran logis mutlak.';
+        } else if(isContradiction){
+          clsTitle = '<span class="text-rose-600">KONTRADIKSI</span>';
+          clsTag = 'bg-rose-50 text-rose-700 border-rose-200';
+          clsDesc = 'Ekspresi proposisi ini <b>selalu bernilai Salah (F)</b> pada seluruh kemungkinan nilai variabelnya.';
+        } else {
+          clsTitle = '<span class="text-amber-600">KONTINGENSI</span>';
+          clsTag = 'bg-amber-50 text-amber-700 border-amber-200';
+          clsDesc = 'Ekspresi proposisi bernilai Benar pada kondisi tertentu dan Salah pada kondisi lainnya tergantung input variabel.';
+        }
+
+        // Update stats
+        document.getElementById('statTotal').textContent = total;
+        document.getElementById('statVars').textContent = vs.length + ' variabel (' + vs.join(', ') + ')';
+        document.getElementById('statTrue').textContent = trueCount;
+        document.getElementById('statTruePct').textContent = Math.round((trueCount / total) * 100) + '% baris';
+        document.getElementById('statFalse').textContent = falseCount;
+        document.getElementById('statFalsePct').textContent = Math.round((falseCount / total) * 100) + '% baris';
+        document.getElementById('rowCount').textContent = total + ' Baris Evaluasi';
+
+        // Update Classification Box
+        const tagEl = document.getElementById('classificationTag');
+        tagEl.className = `text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider border ${clsTag}`;
+        tagEl.textContent = isTautology ? '100% Selalu Benar' : isContradiction ? '100% Selalu Salah' : 'Campuran (T & F)';
+        
+        document.getElementById('classificationTitle').innerHTML = clsTitle;
+        document.getElementById('classificationDesc').innerHTML = clsDesc;
+
+        // Render HTML Table with high aesthetic light design
+        let tableHTML = `
+          <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+            <table class="w-full text-center border-collapse">
+              <thead>
+                <tr class="bg-slate-100/90 border-b border-slate-200 text-[11px] font-mono uppercase tracking-wider text-slate-600">
+                  <th class="py-3 px-4 w-12 text-slate-400 font-semibold">#</th>
+                  ${vs.map(v => `<th class="py-3 px-4 text-brand-700 font-bold border-r border-slate-200">${v}</th>`).join('')}
+                  <th class="py-3 px-4 text-slate-900 font-bold bg-slate-50">${expr}</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-xs font-mono">
+                ${rows.map((r, idx) => {
+                  const outClass = r.out 
+                    ? 'text-emerald-700 bg-emerald-50/70 font-bold' 
+                    : 'text-rose-600 bg-rose-50/60 font-bold';
+                  return `
+                    <tr class="hover:bg-slate-50/70 transition">
+                      <td class="py-2.5 px-4 text-slate-400 text-[11px]">${idx + 1}</td>
+                      ${vs.map(v => `
+                        <td class="py-2.5 px-4 border-r border-slate-200 ${r[v] ? 'text-slate-800' : 'text-slate-500'}">
+                          <span class="inline-block w-6 py-0.5 rounded ${r[v] ? 'bg-slate-100 text-emerald-700 font-semibold' : 'text-rose-600 font-medium'}">${tf(r[v])}</span>
+                        </td>
+                      `).join('')}
+                      <td class="py-2.5 px-4 ${outClass}">
+                        <span class="inline-flex items-center gap-1.5">
+                          ${r.out 
+                            ? '<span class="w-2 h-2 rounded-full bg-emerald-500"></span>' 
+                            : '<span class="w-2 h-2 rounded-full bg-rose-500"></span>'}
+                          ${tf(r.out)}
+                        </span>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+        result.innerHTML = tableHTML;
+
+      } catch(e){
+        err.innerHTML = `
+          <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0"></i>
+            <span><b>Kesalahan Sintaks:</b> ${e.message}</span>
+          </div>`;
+      }
+      lucide.createIcons();
+    }
+
+    // Validate Argument Function
+    function validateArg(){
+      const ptxt = document.getElementById('premises').value;
+      const concl = document.getElementById('conclusion').value.trim();
+      const err = document.getElementById('validError');
+      const box = document.getElementById('validResult');
+
+      err.innerHTML = '';
+      box.innerHTML = '';
+
+      const ps = ptxt.split(/\n/).map(s => s.trim()).filter(Boolean);
+
+      if(!ps.length || !concl){
+        err.innerHTML = `
+          <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 shrink-0"></i>
+            <span>Harap masukkan minimal satu premis dan satu kesimpulan.</span>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      try {
+        const vs = [...new Set([...ps.flatMap(varsOf), ...varsOf(concl)])].sort();
+        if(!vs.length) throw new Error('Tidak ditemukan variabel proposisional pada premis atau kesimpulan.');
+
+        const rows = combinations(vs);
+        
+        // Find counterexample where ALL premises are True, but conclusion is False
+        const counter = rows.find(env => ps.every(p => evalLogic(p, env)) && !evalLogic(concl, env));
+
+        if(counter){
+          // Argument is INVALID
+          box.innerHTML = `
+            <div class="p-5 rounded-xl bg-rose-50/70 border border-rose-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 border border-rose-300 text-xs font-bold font-mono">
+                  <i data-lucide="x" class="w-4 h-4 text-rose-600"></i>
+                  KESIMPULAN: ARGUMEN TIDAK VALID
+                </span>
+                <span class="text-xs text-rose-600 font-semibold">Falasi Ditemukan</span>
+              </div>
+              <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                Argumen ini <b>TIDAK VALID</b> karena ditemukan <b>counterexample</b>: suatu keadaan di mana semua premis terbukti BENAR, namun kesimpulan menghasilkan nilai SALAH.
+              </p>
+              
+              <div class="pt-2">
+                <div class="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-2">Keadaan Counterexample:</div>
+                <div class="overflow-x-auto rounded-lg border border-rose-200 bg-white">
+                  <table class="w-full text-center border-collapse text-xs font-mono">
+                    <thead>
+                      <tr class="bg-rose-50 text-slate-700 border-b border-rose-200">
+                        ${vs.map(v => `<th class="py-2 px-3 text-brand-700">${v}</th>`).join('')}
+                        <th class="py-2 px-3 text-emerald-700">Status Semua Premis</th>
+                        <th class="py-2 px-3 text-rose-700">Hasil Kesimpulan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        ${vs.map(v => `<td class="py-2.5 px-3 text-slate-800 font-semibold">${tf(counter[v])}</td>`).join('')}
+                        <td class="py-2.5 px-3 text-emerald-700 font-bold bg-emerald-50">TRUE (Benar)</td>
+                        <td class="py-2.5 px-3 text-rose-600 font-bold bg-rose-100">FALSE (Salah)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          // Argument is VALID
+          box.innerHTML = `
+            <div class="p-5 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300 text-xs font-bold font-mono">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                  KESIMPULAN: ARGUMEN VALID (SAH)
+                </span>
+                <span class="text-xs text-emerald-700 font-semibold">Tautologis</span>
+              </div>
+              <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                Argumen ini <b>VALID SECARA DEDUKTIF</b>. Tidak ada satupun kombinasi variabel di mana seluruh premis bernilai Benar tetapi kesimpulan bernilai Salah. Kebenaran premis menjamin mutlak kebenaran konklusi.
+              </p>
+              <div class="p-3 bg-white rounded-lg border border-emerald-200 text-xs text-slate-600 flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                <span>Formula implikasi majemuk <code>(P₁ ∧ P₂ ∧ ... ∧ Pₙ) → C</code> merupakan sebuah <b>Tautologi</b>.</span>
+              </div>
+            </div>
+          `;
+        }
+
+      } catch(e){
+        err.innerHTML = `
+          <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600 shrink-0"></i>
+            <span><b>Kesalahan Parser:</b> ${e.message}</span>
+          </div>`;
+      }
+      lucide.createIcons();
+    }
+
+    // Set Argument Preset
+    function setArgumentPreset(premiseText, conclusionText){
+      document.getElementById('premises').value = premiseText;
+      document.getElementById('conclusion').value = conclusionText;
+      validateArg();
+    }
+
+    // Copy Table to Clipboard
+    function copyTableText(){
+      const expr = document.getElementById('expr').value;
+      const total = document.getElementById('statTotal').textContent;
+      const t = document.getElementById('statTrue').textContent;
+      const f = document.getElementById('statFalse').textContent;
+      const copyStr = `LogicNova Export:\nEkspresi: ${expr}\nTotal Baris: ${total}\nBenar (T): ${t}\nSalah (F): ${f}`;
+      navigator.clipboard.writeText(copyStr).then(() => {
+        alert('Ringkasan tabel kebenaran berhasil disalin ke clipboard!');
+      });
+    }
+
+    function loadSampleDoc(){
+      document.querySelector('[data-tab="help"]').click();
+    }
+
+    // ===================== IMPLIKASI & BIIMPLIKASI =====================
+    function negasiKalimat(t){
+      t = t.trim();
+      if(!t) return '(kosong)';
+      return 'tidak (' + t + ')';
+    }
+    function genImplikasi(){
+      const P = document.getElementById('impP').value.trim() || 'P';
+      const Q = document.getElementById('impQ').value.trim() || 'Q';
+      const notP = negasiKalimat(P);
+      const notQ = negasiKalimat(Q);
+      const rows = [
+        {label:'Implikasi (Asli)', sym:'p → q', text:`Jika ${P}, maka ${Q}.`, tag:'≡ Kontraposisi', color:'brand'},
+        {label:'Konvers', sym:'q → p', text:`Jika ${Q}, maka ${P}.`, tag:'≡ Invers', color:'cyan'},
+        {label:'Invers', sym:'~p → ~q', text:`Jika ${notP}, maka ${notQ}.`, tag:'≡ Konvers', color:'cyan'},
+        {label:'Kontraposisi', sym:'~q → ~p', text:`Jika ${notQ}, maka ${notP}.`, tag:'≡ Implikasi', color:'brand'},
+        {label:'Ingkaran (Negasi)', sym:'p ∧ ~q', text:`${P}, tetapi ${notQ}.`, tag:'Meniadakan implikasi', color:'rose'},
+      ];
+      document.getElementById('implikasiResult').innerHTML = rows.map(r => `
+        <div class="p-4 rounded-xl bg-${r.color}-50/60 border border-${r.color}-200 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-${r.color}-700 uppercase tracking-wider">${r.label}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white border border-${r.color}-200 text-${r.color}-700">${r.sym}</span>
+          </div>
+          <p class="text-sm text-slate-800 font-medium leading-relaxed">${r.text}</p>
+          <p class="text-[11px] text-slate-500 font-mono">${r.tag}</p>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    // ===================== HIMPUNAN =====================
+    function parseSet(str){
+      return [...new Set(str.split(',').map(s => s.trim()).filter(s => s !== ''))];
+    }
+    function setUnion(a,b){ return [...new Set([...a, ...b])]; }
+    function setIntersect(a,b){ return a.filter(x => b.includes(x)); }
+    function setDiff(a,b){ return a.filter(x => !b.includes(x)); }
+    function setSymDiff(a,b){ return [...setDiff(a,b), ...setDiff(b,a)]; }
+    function isSubset(a,b){ return a.every(x => b.includes(x)); }
+    function setEq(a,b){ return isSubset(a,b) && isSubset(b,a); }
+    function fmtSet(arr){ return arr.length ? '{ ' + arr.join(', ') + ' }' : '∅ (himpunan kosong)'; }
+
+    function hitungHimpunanFn(){
+      const A = parseSet(document.getElementById('setA').value);
+      const B = parseSet(document.getElementById('setB').value);
+      const S = parseSet(document.getElementById('setS').value);
+      const compA = setDiff(S, A);
+      const compB = setDiff(S, B);
+      const rows = [
+        {label:'Gabungan (A ∪ B)', val: fmtSet(setUnion(A,B)), color:'brand'},
+        {label:'Irisan (A ∩ B)', val: fmtSet(setIntersect(A,B)), color:'emerald'},
+        {label:'Selisih (A − B)', val: fmtSet(setDiff(A,B)), color:'cyan'},
+        {label:'Selisih (B − A)', val: fmtSet(setDiff(B,A)), color:'cyan'},
+        {label:'Selisih Simetris (A Δ B)', val: fmtSet(setSymDiff(A,B)), color:'amber'},
+        {label:'Komplemen A (S − A)', val: fmtSet(compA), color:'indigo'},
+        {label:'Komplemen B (S − B)', val: fmtSet(compB), color:'indigo'},
+      ];
+      let html = rows.map(r => `
+        <div class="flex items-center justify-between p-3.5 rounded-xl bg-${r.color}-50/60 border border-${r.color}-200">
+          <span class="text-xs font-bold text-${r.color}-700 uppercase tracking-wider">${r.label}</span>
+          <span class="text-sm font-mono font-semibold text-slate-800">${r.val}</span>
+        </div>
+      `).join('');
+      html += `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <b class="text-slate-700">A ⊆ B ?</b> <span class="font-mono ${isSubset(A,B) ? 'text-emerald-600 font-bold':'text-rose-600 font-bold'}">${isSubset(A,B) ? 'YA' : 'TIDAK'}</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <b class="text-slate-700">B ⊆ A ?</b> <span class="font-mono ${isSubset(B,A) ? 'text-emerald-600 font-bold':'text-rose-600 font-bold'}">${isSubset(B,A) ? 'YA' : 'TIDAK'}</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:col-span-2">
+            <b class="text-slate-700">A = B (Kesamaan Himpunan) ?</b> <span class="font-mono ${setEq(A,B) ? 'text-emerald-600 font-bold':'text-rose-600 font-bold'}">${setEq(A,B) ? 'YA, A DAN B SAMA' : 'TIDAK SAMA'}</span>
+          </div>
+        </div>`;
+      document.getElementById('himpunanResult').innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // ===================== RELASI & FUNGSI =====================
+    function parsePairs(str){
+      return str.split(',').map(s => s.trim()).filter(Boolean).map(p => {
+        const [a,b] = p.split('-').map(x => x.trim());
+        return [a,b];
+      });
+    }
+    function cekRelasiFn(){
+      const A = parseSet(document.getElementById('relSet').value);
+      const pairs = parsePairs(document.getElementById('relPairs').value);
+      const has = (a,b) => pairs.some(p => p[0] === a && p[1] === b);
+
+      const reflexive = A.every(a => has(a,a));
+      const symmetric = pairs.every(([a,b]) => has(b,a));
+      const antisymmetric = pairs.every(([a,b]) => a === b || !has(b,a));
+      let transitive = true;
+      for(const [a,b] of pairs){
+        for(const [c,d] of pairs){
+          if(b === c && !has(a,d)){ transitive = false; }
+        }
+      }
+      const badge = (label, ok) => `
+        <div class="flex items-center justify-between p-3 rounded-xl border ${ok ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'}">
+          <span class="text-xs font-bold ${ok ? 'text-emerald-700':'text-rose-700'}">${label}</span>
+          <span class="text-xs font-mono font-bold ${ok ? 'text-emerald-700':'text-rose-700'}">${ok ? 'YA' : 'TIDAK'}</span>
+        </div>`;
+      document.getElementById('relasiResult').innerHTML =
+        badge('Refleksif (setiap a berelasi dgn a)', reflexive) +
+        badge('Simetris (a,b) → (b,a)', symmetric) +
+        badge('Transitif (a,b)&(b,c) → (a,c)', transitive) +
+        badge('Antisimetris', antisymmetric);
+      lucide.createIcons();
+    }
+
+    function cekFungsiFn(){
+      const A = parseSet(document.getElementById('fnDomain').value);
+      const B = parseSet(document.getElementById('fnCodomain').value);
+      const map = parsePairs(document.getElementById('fnMap').value);
+      const out = document.getElementById('fungsiResult');
+
+      // Well-defined: setiap elemen domain punya tepat satu pasangan
+      const domainCovered = A.every(a => map.filter(p => p[0] === a).length === 1);
+      if(!domainCovered){
+        out.innerHTML = `<div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 font-semibold">Bukan fungsi: ada elemen domain yang tidak dipetakan atau dipetakan ke lebih dari satu elemen.</div>`;
+        lucide.createIcons();
+        return;
+      }
+      const images = map.map(p => p[1]);
+      const injective = images.length === new Set(images).size;
+      const surjective = B.every(b => images.includes(b));
+      const bijective = injective && surjective;
+
+      const badge = (label, ok) => `
+        <div class="flex items-center justify-between p-3 rounded-xl border ${ok ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'}">
+          <span class="text-xs font-bold ${ok ? 'text-emerald-700':'text-rose-700'}">${label}</span>
+          <span class="text-xs font-mono font-bold ${ok ? 'text-emerald-700':'text-rose-700'}">${ok ? 'YA' : 'TIDAK'}</span>
+        </div>`;
+      out.innerHTML =
+        `<div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-700 font-semibold mb-2">✓ Ini adalah relasi FUNGSI yang valid.</div>` +
+        badge('Injektif (Satu-satu)', injective) +
+        badge('Surjektif (Onto)', surjective) +
+        badge('Bijektif (Korespondensi 1-1)', bijective);
+      lucide.createIcons();
+    }
+
+    // ===================== GRAF & KOMBINATORIAL =====================
+    function hitungGrafFn(){
+      const V = parseSet(document.getElementById('grafVertex').value);
+      const edgeRaw = parsePairs(document.getElementById('grafEdge').value);
+      const degree = {};
+      V.forEach(v => degree[v] = 0);
+      let hasLoop = false;
+      const seen = new Set();
+      let hasMulti = false;
+      edgeRaw.forEach(([a,b]) => {
+        if(a === b) hasLoop = true;
+        const key = [a,b].sort().join('|');
+        if(seen.has(key)) hasMulti = true;
+        seen.add(key);
+        if(degree[a] !== undefined) degree[a]++;
+        if(degree[b] !== undefined && b !== a) degree[b]++;
+      });
+      const simple = !hasLoop && !hasMulti;
+      const degreeHtml = V.map(v => `
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+          <span class="font-mono text-slate-700">deg(${v})</span>
+          <span class="font-mono font-bold text-cyan-700">${degree[v]}</span>
+        </div>`).join('');
+      document.getElementById('grafResult').innerHTML = `
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="p-3 rounded-xl bg-brand-50 border border-brand-200 text-center">
+            <div class="text-[10px] font-bold text-brand-700 uppercase">Jumlah Simpul</div>
+            <div class="text-xl font-mono font-extrabold text-brand-800">${V.length}</div>
+          </div>
+          <div class="p-3 rounded-xl bg-cyan-50 border border-cyan-200 text-center">
+            <div class="text-[10px] font-bold text-cyan-700 uppercase">Jumlah Sisi</div>
+            <div class="text-xl font-mono font-extrabold text-cyan-800">${edgeRaw.length}</div>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl border ${simple ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-rose-50 border-rose-200 text-rose-700'} text-xs font-bold text-center">
+          ${simple ? '✓ Graf Sederhana (tidak ada loop / sisi ganda)' : '✗ Bukan Graf Sederhana (' + (hasLoop ? 'ada loop' : '') + (hasLoop && hasMulti ? ', ' : '') + (hasMulti ? 'ada sisi ganda' : '') + ')'}
+        </div>
+        <div class="space-y-1.5 pt-1">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Derajat Tiap Simpul:</div>
+          ${degreeHtml}
+        </div>`;
+      lucide.createIcons();
+    }
+
+    function factorial(n){ let r = 1; for(let i=2;i<=n;i++) r*=i; return r; }
+    function hitungKombFn(){
+      const n = parseInt(document.getElementById('kombN').value);
+      const r = parseInt(document.getElementById('kombR').value);
+      const out = document.getElementById('kombResult');
+      if(isNaN(n) || isNaN(r) || n < 0 || r < 0){
+        out.innerHTML = `<div class="col-span-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">n dan r harus bilangan bulat non-negatif.</div>`;
+        return;
+      }
+      if(r > n){
+        out.innerHTML = `<div class="col-span-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">Syarat r ≤ n tidak terpenuhi.</div>`;
+        return;
+      }
+      const fact = factorial(n);
+      const nPr = factorial(n) / factorial(n - r);
+      const nCr = nPr / factorial(r);
+      const box = (label, val) => `<div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><div class="text-[10px] font-bold text-amber-700 uppercase">${label}</div><div class="text-base font-mono font-extrabold text-amber-800">${val}</div></div>`;
+      out.innerHTML = box('n!', fact) + box('nPr', nPr) + box('nCr', nCr);
+      lucide.createIcons();
+    }
+
+    function cekBooleanFn(){
+      const ea = document.getElementById('boolExprA').value.trim();
+      const eb = document.getElementById('boolExprB').value.trim();
+      const out = document.getElementById('boolResult');
+      try {
+        const vs = [...new Set([...varsOf(ea), ...varsOf(eb)])].sort();
+        if(!vs.length) throw new Error('Masukkan variabel proposisional pada kedua ekspresi.');
+        const rows = combinations(vs);
+        const equivalent = rows.every(env => evalLogic(ea, env) === evalLogic(eb, env));
+        out.innerHTML = `
+          <div class="p-3 rounded-xl border ${equivalent ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-rose-50 border-rose-200 text-rose-700'} text-xs font-bold text-center">
+            ${equivalent ? '✓ EKIVALEN — kedua ekspresi identik untuk semua nilai variabel.' : '✗ TIDAK EKIVALEN — ditemukan nilai variabel yang menghasilkan hasil berbeda.'}
+          </div>`;
+      } catch(e){
+        out.innerHTML = `<div class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">Kesalahan: ${e.message}</div>`;
+      }
+      lucide.createIcons();
+    }
+
+    // Tab Navigation Switcher
+    document.querySelectorAll('.nav-tab').forEach(tabBtn => {
+      tabBtn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab').forEach(b => {
+          b.classList.remove('active', 'bg-brand-600', 'text-white', 'shadow-glow-indigo');
+          b.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+        });
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+
+        tabBtn.classList.add('active', 'bg-brand-600', 'text-white', 'shadow-glow-indigo');
+        tabBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+        
+        const targetId = tabBtn.dataset.tab;
+        document.getElementById(targetId).classList.remove('hidden');
+      });
+    });
+
+    // Preset formula buttons click
+    document.querySelectorAll('.ex-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('expr').value = btn.dataset.value;
+        analyzeTruth();
+      });
+    });
+
+    // Operator injection buttons
+    document.querySelectorAll('.op-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById('expr');
+        const start = input.selectionStart || input.value.length;
+        const end = input.selectionEnd || input.value.length;
+        const text = input.value;
+        const op = btn.dataset.op;
+        input.value = text.substring(0, start) + op + text.substring(end);
+        input.focus();
+        input.selectionStart = input.selectionEnd = start + op.length;
+      });
+    });
+
+    // Clear truth inputs
+    document.getElementById('clearTruth').addEventListener('click', () => {
+      document.getElementById('expr').value = '';
+      document.getElementById('truthResult').innerHTML = '';
+      document.getElementById('truthError').innerHTML = '';
+      document.getElementById('classificationTitle').innerHTML = '-';
+      document.getElementById('classificationDesc').textContent = 'Masukkan formula logika di sebelah kiri.';
+      document.getElementById('statTotal').textContent = '0';
+      document.getElementById('statTrue').textContent = '0';
+      document.getElementById('statFalse').textContent = '0';
+      document.getElementById('statVars').textContent = '0 variabel';
+      document.getElementById('rowCount').textContent = '0 baris';
+    });
+
+    // Bind execution events
+    document.getElementById('makeTruth').addEventListener('click', analyzeTruth);
+    document.getElementById('checkValid').addEventListener('click', validateArg);
+    document.getElementById('expr').addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') analyzeTruth();
+    });
+
+    // Bind new feature events
+    document.getElementById('genImplikasi').addEventListener('click', genImplikasi);
+    document.getElementById('hitungHimpunan').addEventListener('click', hitungHimpunanFn);
+    document.getElementById('cekRelasi').addEventListener('click', cekRelasiFn);
+    document.getElementById('cekFungsi').addEventListener('click', cekFungsiFn);
+    document.getElementById('hitungGraf').addEventListener('click', hitungGrafFn);
+    document.getElementById('hitungKomb').addEventListener('click', hitungKombFn);
+    document.getElementById('cekBoolean').addEventListener('click', cekBooleanFn);
+
+    // Initial render for new tabs so they're not empty on first visit
+    genImplikasi();
+    hitungHimpunanFn();
+    cekRelasiFn();
+    cekFungsiFn();
+    hitungGrafFn();
+    hitungKombFn();
+    cekBooleanFn();
+
+    // Initial setup state styling
+    document.querySelector('.nav-tab.active').classList.add('bg-brand-600', 'text-white', 'shadow-glow-indigo');
+    analyzeTruth();
+  </script>
+
+
+</body></html>
